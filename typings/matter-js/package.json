@@ -1,0 +1,56 @@
+{
+  "_from": "@types/matter-js",
+  "_id": "@types/matter-js@0.10.0",
+  "_inBundle": false,
+  "_integrity": "sha512-7KUBacbLrPF8bHf1rtI8/y2t3D2lmMKfQVfuessIl02x5OWsP/IRjo8Jn4r1/NuJlMbxyH72zPyNhS+TeRR77A==",
+  "_location": "/@types/matter-js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@types/matter-js",
+    "name": "@types/matter-js",
+    "escapedName": "@types%2fmatter-js",
+    "scope": "@types",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/matter-js/-/matter-js-0.10.0.tgz",
+  "_shasum": "b533b537209577e5e4abed74c63c86b575568fba",
+  "_spec": "@types/matter-js",
+  "_where": "/home/owner/Documents/GT/CX4230/evac_sim",
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Ivane Gegia",
+      "url": "https://twitter.com/ivanegegia"
+    },
+    {
+      "name": "David Asmuth",
+      "url": "https://github.com/piranha771"
+    },
+    {
+      "name": "Piotr Pietrzak",
+      "url": "https://github.com/hasparus"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "TypeScript definitions for Matter.js -",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/matter-js",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.0",
+  "typesPublisherContentHash": "ec64639fc5fcc73e3d86fb7e4cbe25b83c46298ad2f7795a3f630cb7a214a737",
+  "version": "0.10.0"
+}

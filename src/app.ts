@@ -17,6 +17,7 @@ const start = () => {
 	Render.run(render)
 }
 
+
 export default {
 	start,
 }

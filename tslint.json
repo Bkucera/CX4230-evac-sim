@@ -9,13 +9,17 @@
     "no-arg": true,
     "no-bitwise": true,
     "no-conditional-assignment": true,
-	"no-consecutive-blank-lines": false,
-	"quotemark": false,
-	"indent":false,
+    "no-consecutive-blank-lines": false,
+    "quotemark": false,
+    "indent": false,
+    "object-literal-sort-keys": false,
     "no-console": {
       "severity": "warning",
       "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
     }
+  },
+  "whitespace": {
+    "severity": "warning"
   },
   "jsRules": {
     "max-line-length": {
