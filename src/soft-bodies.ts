@@ -4,14 +4,16 @@ import {
 } from "matter-js";
 
 function start() {
+	const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+	const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 	const engine = Engine.create();
 	const world = engine.world;
 	const render = Render.create({
 		element: document.body,
 		engine,
 		options: {
-			height: 600,
-			width: 800,
+			height: h,
+			width: w,
 		},
 	});
 	Render.run(render);
