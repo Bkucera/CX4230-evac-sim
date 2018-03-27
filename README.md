@@ -27,7 +27,7 @@ npm run build
 Build and populate docs folder:
 
 ```bash
-npm deploy
+npm run deploy
 ```
 
 Commit and push to Master
