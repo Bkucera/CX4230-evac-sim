@@ -20,8 +20,8 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
-      - run: yarn build
+      - run: npm ci
+      - run: npm run build
 
       - save_cache:
           paths:
@@ -29,6 +29,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      #- run: yarn test
+      #- run: npm run test
 
 
