@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
-    "deploy": "npm run build && ts-node scripts/deploy.ts",
+    "deploy": "npm run build --env.production && ts-node scripts/deploy.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
