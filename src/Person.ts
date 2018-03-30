@@ -46,11 +46,11 @@ export default class Person {
 		Body.applyForce(
 			this.body,
 			this.body.position,
-			this.getRandomDirection(),
+			this.getRandomDirectionForce(),
 		)
 	}
 
-	private getRandomDirection() {
+	private getRandomDirectionForce() {
 		return Vector.div(Vector.normalise(
 			{ x: Math.random() - 0.5, y: Math.random() - 0.5 },
 		),300/this.body.mass)
