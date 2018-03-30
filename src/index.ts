@@ -1,6 +1,6 @@
-// import app from './app'
-// app.start()
+import app from './app'
+app.start()
 
-// run the "soft bodies" example
-import softBodies from './soft-bodies'
-softBodies()
+// run the "soft bodies" example:
+// import SoftBodies from './examples/SoftBodies'
+// SoftBodies()

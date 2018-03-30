@@ -6,6 +6,7 @@
     },
     "new-parens": true,
     "semicolon": false,
+    "ordered-imports":false,
     "no-arg": true,
     "no-bitwise": true,
     "no-conditional-assignment": true,
@@ -19,7 +20,7 @@
     }
   },
   "whitespace": {
-    "severity": "warning"
+    "severity": "info",
   },
   "jsRules": {
     "max-line-length": {

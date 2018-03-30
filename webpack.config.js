@@ -1,10 +1,16 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
-
+const mode = 'development' // 'production'
 
 module.exports = {
-  entry: './src/index.ts',
+  mode,
+  entry: {
+    main: './src/index.ts',
+    // vendor: ['matter-js'],
+  },
   module: {
     rules: [
       {
@@ -18,10 +24,11 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ]
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
+    new CleanWebpackPlugin(),
 	  new HtmlWebpackPlugin({
 		  title: "Evac Sim"
 	  })
@@ -31,5 +38,16 @@ module.exports = {
 	contentBase: path.join(__dirname, "dist"),
 	compress: true,
 	port: 9000
-  }
+  },
+  // optimization: {
+	// 	splitChunks: {
+	// 		cacheGroups: {
+	// 			vendor1: {
+	// 				name: "matter-js",
+	// 				test: "matter-js",
+	// 				enforce: true
+	// 			},
+	// 		}
+	// 	}
+	// },
 };
