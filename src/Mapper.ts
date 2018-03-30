@@ -1,9 +1,10 @@
 import { Bodies, Engine, Render, World, Mouse, MouseConstraint, Constraint, Composite, Body, Vector } from "matter-js"
 import Person, { } from "./Person";
-import {h,w, wallColor} from './globals'
-let engine
-const createMap = (appEngine) => {
-	engine = appEngine
+import Spawner from "./Spawner";
+import { h, w, wallColor } from './globals'
+import { engine } from "./app";
+
+const createMap = () => {
 
 	// add the walls on all four sides of the simulation
 	const ground = [
@@ -18,29 +19,8 @@ const createMap = (appEngine) => {
 	World.add(engine.world, [...ground])
 
 	// spawn the People
-	spawnPeople()
+	Spawner.start()
 
-
-}
-
-/**
- * This function is not what we want.
- * We to take in an Array of spawn locations : {x,y} and create a Person
- *   for each one at that location. Currently we are just spawning people
- *   randomly
- */
-function spawnPeople(spawnLocations: Array<Vector> = null) {
-
-	const addPerson = () => {
-		const person = new Person({
-			initPosition: {x: Math.random()*w, y: Math.random()*h}
-		})
-		World.add(engine.world, [person.body])	
-	}
-
-	for (let i = 0; i<20; i++) {
-		addPerson()
-	}
 }
 
 export default {

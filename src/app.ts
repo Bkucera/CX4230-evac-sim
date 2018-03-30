@@ -3,10 +3,11 @@ import { Bodies, Engine, Render, World, Mouse, MouseConstraint, Constraint, Comp
 import Mapper from './Mapper'
 import { w, h } from './globals'
 
-const start = () => {
+export let engine
+export const start = () => {
 
 	// create the simulation objects
-	const engine = Engine.create()
+	engine = Engine.create()
 	const render = Render.create({
 		element: document.body,
 		engine,
@@ -39,10 +40,5 @@ const start = () => {
 	engine.world.gravity.y = 0	
 
 	// pass off work to Mapper
-	Mapper.createMap(engine)
-}
-
-
-export default {
-	start,
+	Mapper.createMap()
 }
