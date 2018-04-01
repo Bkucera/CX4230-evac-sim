@@ -36,8 +36,8 @@ const createDefaultMap = () => {
 }
 
 const defaultExits = [
-	new Exit(Vector.create(w - w / 6 + wallThickness, h - wallThickness / 2), defaultExitWidth),
-	new Exit(Vector.create(w - w / 6 + wallThickness, wallThickness / 2), defaultExitWidth)
+	new Exit(Vector.create(w - w / 6 + wallThickness, h - wallThickness / 2), w / 6 + wallThickness),
+	new Exit(Vector.create(w - w / 6 + wallThickness, wallThickness / 2), w / 6 + wallThickness)
 ]
 
 const createMap = (exitLocations: Array<Vector> = null,
