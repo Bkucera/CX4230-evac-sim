@@ -11,10 +11,8 @@ const roomLength = 25
 const createDefaultMap = () => {
 	// add the walls on all four sides of the simulation
 	const walls = [
-		Bodies.rectangle(0, h - wallThickness / 2, w / 3 - defaultExitWidth, wallThickness, { isStatic: true }),
-		Bodies.rectangle(w / 2, h - wallThickness / 2, w - w / 3 + defaultExitWidth, wallThickness, { isStatic: true }),
-		Bodies.rectangle(0, wallThickness / 2, w / 3 - defaultExitWidth, wallThickness, { isStatic: true }),
-		Bodies.rectangle(w / 2, wallThickness / 2, w - w / 3 + defaultExitWidth, wallThickness, { isStatic: true }),
+		Bodies.rectangle(0, h - wallThickness / 2, 2 * w - 4 * defaultExitWidth, wallThickness, { isStatic: true }),
+		Bodies.rectangle(0, wallThickness / 2, 2 * w - 4 * defaultExitWidth, wallThickness, { isStatic: true }),
 		Bodies.rectangle(wallThickness / 2, h/2, wallThickness, h, { isStatic: true }),
 		Bodies.rectangle(w - wallThickness / 2, h/2, wallThickness, h, { isStatic: true }),
 		Bodies.rectangle(w / 2, wallThickness, wallThickness, h / 2 - defaultExitWidth / 2, { isStatic: true }),
@@ -36,8 +34,8 @@ const createDefaultMap = () => {
 }
 
 const defaultExits = [
-	new Exit(Vector.create(w - w / 6 + wallThickness, h - wallThickness / 2), 0, w / 6 + wallThickness),
-	new Exit(Vector.create(w - w / 6 + wallThickness, wallThickness / 2), 0, w / 6 + wallThickness)
+	new Exit(Vector.create(2 * w - 4 * defaultExitWidth, h - wallThickness / 2), 0, 4 * defaultExitWidth),
+	new Exit(Vector.create(2 * w - 4 * defaultExitWidth, wallThickness / 2), 0, 4 * defaultExitWidth)
 ]
 
 const createMap = (exitLocations: Array<Vector> = null,
