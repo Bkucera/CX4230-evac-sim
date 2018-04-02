@@ -1,6 +1,8 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
 import { personColor } from './globals';
+import { defaultExits } from './Mapper';
+import Exit from './Exit';
 
 /*
 
@@ -22,6 +24,7 @@ export default class Person {
 	public id: number
 	public initPosition: Vector = { x: 400, y: 400 }
 	public body : Body
+	public exit: Exit
 	constructor(options: Partial<Person>) {
 		assign(this, options)
 
@@ -37,6 +40,12 @@ export default class Person {
 			}
 		)
 
+		// Choose random exit using random int generator
+		// (min is inclusive, max is exclusive)
+		let min = Math.ceil(0)
+  		let max = Math.floor(defualtExits.length)
+  		this.exit = defaultExits[Math.floor(Math.random() * (max - min)) + min]
+
 		// Start walking randomly every 90 ms, repeat forever
 		setInterval(() => this.move(), 90)
 
@@ -46,7 +55,7 @@ export default class Person {
 		Body.applyForce(
 			this.body,
 			this.body.position,
-			this.getRandomDirectionForce(),
+			this.getExitDirectionForce(),
 		)
 	}
 
@@ -54,5 +63,14 @@ export default class Person {
 		return Vector.div(Vector.normalise(
 			{ x: Math.random() - 0.5, y: Math.random() - 0.5 },
 		),300/this.body.mass)
+	}
+
+	private getExitDirectionForce() {
+		let deltaX = this.exit.position.x - this.body.position.x
+		let deltaY = this.exit.position.y - this.body.position.y
+		return Vector.div(Vector.normalise({
+			x: deltaX,
+			y: deltaY,
+		}), 300 / this.body.mass)
 	}
 }
