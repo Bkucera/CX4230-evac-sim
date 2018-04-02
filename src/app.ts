@@ -40,5 +40,5 @@ export const start = () => {
 	engine.world.gravity.y = 0	
 
 	// pass off work to Mapper
-	Mapper.createMap()
+	Mapper.createDefaultMap()
 }
