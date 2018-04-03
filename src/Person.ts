@@ -31,7 +31,7 @@ export default class Person {
 	public initPosition: Vector = { x: 400, y: 400 }
 	public body : Body
 	public exit: Vector
-	public responseTime: number
+	public responseTime: number = 0
 	public speed: number
 	public exitBehavior: object
 	constructor(options: Partial<Person>) {
@@ -49,12 +49,11 @@ export default class Person {
 			}
 		)
 
-		// Choose random exit using random int generator
-		// (min is inclusive, max is exclusive)
-		let min = Math.ceil(0)
-  		let max = Math.floor(defaultExits.length)
-  		this.exit = defaultExits[Math.floor(Math.random() * (max - min)) + min]
-
+		while (!this.waitUntilAlarmAck) {
+			// Do nothing.
+		}
+		
+		this.getExit()
 		// Start walking randomly every 90 ms, repeat forever
 		setInterval(() => this.move(), 90)
 
@@ -68,10 +67,24 @@ export default class Person {
 		)
 	}
 
-	private getRandomDirectionForce() {
-		return Vector.div(Vector.normalise(
-			{ x: Math.random() - 0.5, y: Math.random() - 0.5 },
-		),300/this.body.mass)
+	/**
+	 * Waits for person to respond to the alarm
+	 * @return Returns true if the person is now responding to the alarm, false otherwise
+	 */
+	private waitUntilAlarmAck(): Boolean {
+		// This is probably broken since we haven't sync'd sim time
+		if (this.responseTime > 0) {
+			this.responseTime--
+		}
+		return (this.responseTime < 0)
+	}
+
+	private getExit() {
+		// Choose random exit using random int generator
+		// (min is inclusive, max is exclusive)
+		let min = Math.ceil(0)
+  		let max = Math.floor(defaultExits.length)
+  		this.exit = defaultExits[Math.floor(Math.random() * (max - min)) + min]
 	}
 
 	private getExitDirectionForce() {
