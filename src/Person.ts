@@ -8,9 +8,9 @@ const wallThickness = 10
 const roomLength = 25
 const defaultExitWidth = 25
 const defaultExits = [
-		Vector.create(2 * w - 4 * defaultExitWidth, h - wallThickness / 2),
-		Vector.create(2 * w - 4 * defaultExitWidth, wallThickness / 2)
-	]
+	Vector.create(w, h - wallThickness / 2),
+	Vector.create(w, wallThickness / 2)
+]
 
 /*
 
