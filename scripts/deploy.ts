@@ -1,6 +1,10 @@
-import * as fs from 'fs-extra'
+import { deploy } from "./deploy-ci";
 
-fs.removeSync('./docs')
-fs.copySync('./dist', './docs')
+deploy("bkucera", "benkucera@gmail.com", "tmp", "branch-123")
 
-console.log('Ready to deploy')
+// import * as fs from 'fs-extra'
+
+// // fs.removeSync('./docs')
+// fs.copySync('./dist', './docs')
+
+// console.log('Ready to deploy')
