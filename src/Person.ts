@@ -31,6 +31,9 @@ export default class Person {
 	public initPosition: Vector = { x: 400, y: 400 }
 	public body : Body
 	public exit: Vector
+	public responseTime: number
+	public speed: number
+	public exitBehavior: object
 	constructor(options: Partial<Person>) {
 		assign(this, options)
 
