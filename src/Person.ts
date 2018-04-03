@@ -1,6 +1,6 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
-import { personColor } from './globals';
+import { personColor, personSize } from './globals';
 
 /*
 
@@ -28,7 +28,7 @@ export default class Person {
 		this.body = Bodies.circle(
 			this.initPosition.x,
 			this.initPosition.y,
-			6,  // circle radius
+			personSize,  // circle radius
 			{
 				frictionAir: 0.1,
 				render: {

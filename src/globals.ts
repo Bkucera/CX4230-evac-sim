@@ -2,7 +2,7 @@ const w = 1024
 const h = 576
 
   const personColor = '#8BBF9F'
-  const personSize = 3
+  const personSize = 6
   const	wallColor = "#857E7B"
   const defaultExitWidth = 25
 

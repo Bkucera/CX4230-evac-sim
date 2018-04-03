@@ -1,6 +1,7 @@
 import { Bodies, Engine, Render, World, Mouse, MouseConstraint, Constraint, Composite, Body, Vector } from "matter-js"
 import Person, { } from "./Person";
 import Exit, { } from "./Exit";
+import Hazard, { } from "./Hazard";
 import Spawner from "./Spawner";
 import { h, w, wallColor, defaultExitWidth } from './globals'
 import { engine } from "./app";
@@ -38,6 +39,10 @@ const defaultExits = [
 	new Exit(Vector.create(2 * w - 4 * defaultExitWidth, wallThickness / 2), 0, 4 * defaultExitWidth)
 ]
 
+const defaultObstacles = [
+	new Hazard(Vector.create(w / 2 + 5 * wallThickness, h / 2), wallThickness, h / 2)
+]
+
 const createMap = (exitLocations: Array<Vector> = null,
 					obstacleLocations: Array<Vector> = null) => {
 	// TODO
@@ -46,5 +51,6 @@ const createMap = (exitLocations: Array<Vector> = null,
 export default {
 	createDefaultMap,
 	defaultExits,
+	defaultObstacles,
 	createMap,
 }
