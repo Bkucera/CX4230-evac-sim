@@ -27,6 +27,5 @@ if (!sh.which('git')) {
   sh.exit(1)
 }
 
-const branch_name = sh.exec('git rev-parse --abbrev-ref HEAD').toString()
-console.log(branch_name)
+const branch_name = sh.exec('git rev-parse --abbrev-ref HEAD').toString().trim()
 deploy("bkucera", "benkucera@gmail.com", "tmp", branch_name)
