@@ -22,12 +22,13 @@ jobs:
           - v1-dependencies-
       - run: npm install
       - run: npm run build
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
+
+      # Deploy
+      - run: npm run deploy-ci
       # run tests!
       #- run: npm run test
 
