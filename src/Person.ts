@@ -1,6 +1,6 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
-import { w, h, personColor } from './globals';
+import { w, h, personColor, personSize } from './globals';
 //import { defaultExits } from './Mapper';
 
 // Hardcoded defaultExits 
@@ -8,9 +8,9 @@ const wallThickness = 10
 const roomLength = 25
 const defaultExitWidth = 25
 const defaultExits = [
-		Vector.create(2 * w - 4 * defaultExitWidth, h - wallThickness / 2),
-		Vector.create(2 * w - 4 * defaultExitWidth, wallThickness / 2)
-	]
+	Vector.create(w, h - wallThickness / 2),
+	Vector.create(w, wallThickness / 2),
+]
 
 /*
 
@@ -40,7 +40,7 @@ export default class Person {
 		this.body = Bodies.circle(
 			this.initPosition.x,
 			this.initPosition.y,
-			6,  // circle radius
+			personSize,  // circle radius
 			{
 				frictionAir: 0.1,
 				render: {
