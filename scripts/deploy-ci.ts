@@ -26,6 +26,7 @@ if (!sh.which('git')) {
   sh.echo('Git not installed')
   sh.exit(1)
 }
-
+sh.exec('git config --global user.name ' + 'Ben Kucera - CI')
+sh.exec('git config --global user.email ' + '14625260+Bkucera@users.noreply.github.com')
 const branch_name = sh.exec('git rev-parse --abbrev-ref HEAD').toString().trim()
 deploy("bkucera", "benkucera@gmail.com", "tmp", branch_name)
