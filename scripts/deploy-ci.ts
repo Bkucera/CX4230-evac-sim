@@ -12,6 +12,8 @@ export const deploy = (
   sh.exec('npm run build')
   sh.cp('-r', 'dist', temp_folder)
   sh.exec(`git checkout gh-pages`)
+  sh.exec('git pull --rebase')
+  sh.rm('-rf', dest_folder)
   sh.cp('-r', temp_folder, dest_folder)
   sh.exec(`git add ${dest_folder}`)
   sh.exec(`git commit -m "Deploy ${dest_folder}"`)
