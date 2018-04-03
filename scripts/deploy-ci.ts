@@ -22,4 +22,4 @@ export const deploy = (
   sh.exec('git push origin gh-pages')
 }
 
-deploy("bkucera", "benkucera@gmail.com", "tmp", "branch-123")
+deploy("bkucera", "benkucera@gmail.com", "tmp", "branch-12345")
