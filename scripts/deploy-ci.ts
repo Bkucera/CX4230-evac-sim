@@ -1,6 +1,7 @@
 import * as fs from "fs-extra"
 import { exec } from "child_process"
 import * as Promise from "bluebird"
+import * as sh from 'shelljs'
 
 export const deploy = (
   gh_name: string,
@@ -8,15 +9,17 @@ export const deploy = (
   temp_folder: string,
   dest_folder: string
 ) => {
-  const execAsync = Promise.promisify(exec)
-  execAsync("npm run build")
-    .then(() => fs.copySync("./dist", temp_folder))
-    .then(() => execAsync("git checkout `gh-pages`"))
-    .then(() => fs.copySync(temp_folder, dest_folder))
-    .then(()=> execAsync(`git add .`))
-    .then(() => execAsync(`git status`))
-    .then(console.log)    
-    .then(()=> execAsync("git push origin HEAD"))
-    .then(console.log)
-    .then(console.log('success!'))
+  if (!sh.which('git')) {
+    sh.echo('Git not installed')
+    sh.exit(1)
+  }
+  sh.exec('npm run build')
+  sh.cp('-r', 'dist', temp_folder)
+  sh.exec(`git checkout gh-pages`)
+  sh.cp('-r', temp_folder, dest_folder)
+  sh.exec(`git add ${dest_folder}`)
+  sh.exec(`git commit -m "Deploy ${dest_folder}"`)
+  sh.exec('git push origin gh-pages')
 }
+
+deploy("bkucera", "benkucera@gmail.com", "tmp", "branch-123")
