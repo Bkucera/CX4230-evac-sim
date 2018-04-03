@@ -2,7 +2,7 @@
 *a simulation project for Gatech CX4230*  
 [![CircleCI](https://circleci.com/gh/Bkucera/CX4230-evac-sim.svg?style=svg)](https://circleci.com/gh/Bkucera/CX4230-evac-sim)
 
-[Demo](http://kuc.io/CX4230-evac-sim/)
+[Demo - master](https://kuc.io/CX4230-evac-sim/master)
 
 Install dependencies:
 
@@ -16,32 +16,23 @@ Run Dev Server (with auto-reloading):
 npm start
 ```
 
-build for testing/releasing:
+build for testing/releasing to the `dist/` directory:
 
 ```bash
 npm run build
 ```
 
-### To deploy to demo:
+### Deployment
 
-Build and populate docs folder:
+All deployments are automated though Circle-CI (scripted in `scripts/deploy-ci.ts`).
 
-```bash
-npm run deploy
-```
-
-Commit and push to Master
-```bash
-git add docs
-git commit -m "Deploy"
-git push origin master
-```
-
-# Deploy instructions for deeplearning cluster:
+Any commit to any branch will trigger a build and deployment to `kuc.io/CX4230-evac-sim/` + `branch_name`  
+It follows that `master` will be viewable here: [kuc.io/CX4230-evac-sim/master](https://kuc.io/CX4230-evac-sim/issue-6/)
+# Running instructions for deeplearning cluster:
 
 clone this repo using git or download:
 ```
-git clone https://github.com/Bkucera/CX4230-evac-sim.git && cd CX4320-evac-sim
+git clone https://github.com/Bkucera/CX4230-evac-sim.git && cd CX4230-evac-sim
 ```
 
 install [nodejs version manager](https://github.com/creationix/nvm):
