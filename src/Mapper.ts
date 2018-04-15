@@ -12,17 +12,18 @@ const roomLength = 25
 const createDefaultMap = () => {
 	// add the walls on all four sides of the simulation
 	const walls = [
-		Bodies.rectangle(0, h - wallThickness / 2, 2 * w - 4 * defaultExitWidth, wallThickness, { isStatic: true }),
-		Bodies.rectangle(0, wallThickness / 2, 2 * w - 4 * defaultExitWidth, wallThickness, { isStatic: true }),
+		Bodies.rectangle(0, h - wallThickness / 2, 2 * w, wallThickness, { isStatic: true }),
+		Bodies.rectangle(0, wallThickness / 2, 2 * w, wallThickness, { isStatic: true }),
 		Bodies.rectangle(wallThickness / 2, h/2, wallThickness, h, { isStatic: true }),
-		Bodies.rectangle(w - wallThickness / 2, h/2, wallThickness, h, { isStatic: true }),
-		Bodies.rectangle(w / 2, wallThickness, wallThickness, h / 2 - defaultExitWidth / 2, { isStatic: true }),
-		Bodies.rectangle(w / 2, h + defaultExitWidth / 2, wallThickness, h / 2, { isStatic: true }),
+		Bodies.rectangle(w - wallThickness / 2, h/4-defaultExitWidth/2, wallThickness, h/2-defaultExitWidth/2, { isStatic: true }),
+		Bodies.rectangle(w - wallThickness / 2, h*3/4+defaultExitWidth/2, wallThickness, h/2-defaultExitWidth/2, { isStatic: true }),
+		// Bodies.rectangle(w / 2, wallThickness, wallThickness, h / 2 - defaultExitWidth / 2, { isStatic: true }),
+		// Bodies.rectangle(w / 2, h + defaultExitWidth / 2, wallThickness, h / 2, { isStatic: true }),
 	]
 		walls.forEach(wall => wall.render.fillStyle = wallColor)
 
 	const obstacles = [
-		Bodies.rectangle(w / 2 + 5 * wallThickness, h / 2, wallThickness, h / 2, { isStatic: true })
+		// Bodies.rectangle(w / 2 + 5 * wallThickness, h / 2, wallThickness, h / 2, { isStatic: true })
 	]
 	obstacles.forEach(wall => wall.render.fillStyle = wallColor)
 	// actually add them to the sim
@@ -33,9 +34,13 @@ const createDefaultMap = () => {
 	Spawner.start()
 }
 
-const defaultExits = [
-	new Exit(Vector.create(2 * w - 4 * defaultExitWidth, h - wallThickness / 2), 0, 4 * defaultExitWidth),
-	new Exit(Vector.create(2 * w - 4 * defaultExitWidth, wallThickness / 2), 0, 4 * defaultExitWidth)
+export const exits = [
+	// new Exit(Vector.create(2 * w - 4 * defaultExitWidth, h - wallThickness / 2), 0, 4 * defaultExitWidth),
+	// new Exit(Vector.create(2 * w - 4 * defaultExitWidth, wallThickness / 2), 0, 4 * defaultExitWidth),
+	new Exit({
+		position:Vector.create(w, h / 2),
+		length: 0, 
+		width: defaultExitWidth}),
 ]
 
 const defaultObstacles = [
@@ -49,7 +54,6 @@ const createMap = (exitLocations: Array<Vector> = null,
 
 export default {
 	createDefaultMap,
-	defaultExits,
 	defaultObstacles,
 	createMap,
 }

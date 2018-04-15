@@ -2,8 +2,10 @@ import { Vector, World } from "matter-js";
 import Person from "./Person";
 import { w, h } from "./globals";
 import { engine } from "./app";
+import { stats } from "./stats";
+import * as $ from 'jquery';
 
-
+const $exitedCount = $('<div id="exited-count">No escapees</div>').appendTo($('body'))
 
 /**
  * This function is not what we want.
@@ -20,7 +22,7 @@ const spawnPeople = (spawnLocations: Array<Vector> = null) => {
 		World.add(engine.world, [person.body])	
 	}
 
-	for (let i = 0; i<20; i++) {
+	for (let i = 0; i<50; i++) {
 		addPerson()
 	}
 }
@@ -28,6 +30,12 @@ const spawnPeople = (spawnLocations: Array<Vector> = null) => {
 const start = () => {
 	
 	spawnPeople()
+}
+
+export const exitedBuilding = (person : Person) => {
+	World.remove(engine.world, person.body)
+	stats.evacuatedCount++
+	$exitedCount.text(`Evacuated Count: ${stats.evacuatedCount}`)
 }
 
 
