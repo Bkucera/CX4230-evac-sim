@@ -2,8 +2,14 @@ import { Bodies, Engine, Render, World, Mouse, MouseConstraint, Constraint, Comp
 
 import Mapper from './Mapper'
 import { w, h } from './globals'
-
+import * as $ from 'jquery'
+import { stats } from "./stats";
 export let engine
+
+const $timestamp = $(`<div>timestamp:0</div>`).appendTo($('body'))
+
+let headless = true
+
 export const start = () => {
 
 	// create the simulation objects
@@ -17,11 +23,18 @@ export const start = () => {
 			wireframes:false,
 		},
 	})
+	Render.run(render)
 
 	// start the simulation
 	Engine.run(engine)
-	Render.run(render)
 
+	console.log(engine.timing)
+	engine.timing.timeScale = 1
+	setInterval(() => {
+		stats.timestamp = Math.round(engine.timing.timestamp/10)/100
+		$timestamp.text(`timestamp: ${stats.timestamp}`)
+	}, 100);
+	window['engine'] = engine
 	// add mouse interaction
 	const mouse = Mouse.create(render.canvas);
 	const mouseConstraint = MouseConstraint.create(engine, {

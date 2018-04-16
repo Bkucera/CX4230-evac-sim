@@ -1,10 +1,10 @@
-const w = 1024
-const h = 576
+const w = 400
+const h = 400
 
   const personColor = '#8BBF9F'
   const personSize = 6
   const	wallColor = "#857E7B"
-  const defaultExitWidth = 25
+  const exitWidth = 10
 
 export {
 	w,
@@ -12,5 +12,5 @@ export {
   personColor,
   personSize,
   wallColor,
-  defaultExitWidth
+  exitWidth
 }

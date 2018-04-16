@@ -1,16 +1,20 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
 import { w, h, personColor, personSize } from './globals';
-//import { defaultExits } from './Mapper';
+import {exits, getZone} from './Mapper'
+import Exit from './Exit';
+import { exitedBuilding } from "./Spawner";
 
 // Hardcoded defaultExits 
 const wallThickness = 10
 const roomLength = 25
 const defaultExitWidth = 25
-const defaultExits = [
-	Vector.create(w, h - wallThickness / 2),
-	Vector.create(w, wallThickness / 2)
-]
+// const defaultExits = [
+// 	Vector.create(w, h - wallThickness / 2),
+// 	Vector.create(w, wallThickness / 2)
+// ]
+// const exits = Mapper.exits || defaultExits
+
 
 /*
 
@@ -30,10 +34,11 @@ export default class Person {
 	public id: number
 	public initPosition: Vector = { x: 400, y: 400 }
 	public body : Body
-	public exit: Vector
+	public exit : Exit
 	public responseTime: number = 0
 	public speed: number
 	public exitBehavior: object
+	private timeout: any
 	constructor(options: Partial<Person>) {
 		assign(this, options)
 
@@ -42,7 +47,7 @@ export default class Person {
 			this.initPosition.y,
 			personSize,  // circle radius
 			{
-				frictionAir: 0.1,
+				frictionAir: 0.3,
 				render: {
 					fillStyle: personColor
 			}	
@@ -55,11 +60,29 @@ export default class Person {
 		
 		this.getExit()
 		// Start walking randomly every 90 ms, repeat forever
-		setInterval(() => this.move(), 90)
+		setTimeout(() => {
+			this.timeout = setInterval(() => this.move(), 120)
+		}, Math.random()*500);
 
 	}
 
-	move() {
+	private reachedExit() {
+		if (this.exit.nextZone) {
+			this.exit = this.exit.nextZone.exits[0]
+		} else {
+			this.exitBuilding()
+		}
+	}
+
+	private exitBuilding() {
+		exitedBuilding(this)
+		clearInterval(this.timeout)
+	}
+
+	private move() {
+		if (Vector.magnitude(Vector.sub(this.body.position, this.exit.position)) < 10) {
+			this.reachedExit()
+		}
 		Body.applyForce(
 			this.body,
 			this.body.position,
@@ -80,19 +103,18 @@ export default class Person {
 	}
 
 	private getExit() {
+		this.exit = getZone(this.body.position).exits[0]
 		// Choose random exit using random int generator
 		// (min is inclusive, max is exclusive)
-		let min = Math.ceil(0)
-  		let max = Math.floor(defaultExits.length)
-  		this.exit = defaultExits[Math.floor(Math.random() * (max - min)) + min]
+  		// this.exit = exits[1]
 	}
 
 	private getExitDirectionForce() {
-		let deltaX = this.exit.x - this.body.position.x
-		let deltaY = this.exit.y - this.body.position.y
+		let deltaX = this.exit.position.x - this.body.position.x
+		let deltaY = this.exit.position.y - this.body.position.y
 		return Vector.div(Vector.normalise({
 			x: deltaX,
 			y: deltaY,
-		}), 300 / this.body.mass)
+		}), 100 / this.body.mass)
 	}
 }
