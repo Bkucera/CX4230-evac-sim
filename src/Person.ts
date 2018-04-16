@@ -1,7 +1,7 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
 import { w, h, personColor, personSize } from './globals';
-import {exits} from './Mapper'
+import {exits, getZone} from './Mapper'
 import Exit from './Exit';
 import { exitedBuilding } from "./Spawner";
 
@@ -14,7 +14,6 @@ const defaultExitWidth = 25
 // 	Vector.create(w, wallThickness / 2)
 // ]
 // const exits = Mapper.exits || defaultExits
-
 
 
 /*
@@ -67,14 +66,22 @@ export default class Person {
 
 	}
 
-	exitBuilding() {
+	private reachedExit() {
+		if (this.exit.nextZone) {
+			this.exit = this.exit.nextZone.exits[0]
+		} else {
+			this.exitBuilding()
+		}
+	}
+
+	private exitBuilding() {
 		exitedBuilding(this)
 		clearInterval(this.timeout)
 	}
 
-	move() {
+	private move() {
 		if (Vector.magnitude(Vector.sub(this.body.position, this.exit.position)) < 10) {
-			this.exitBuilding()
+			this.reachedExit()
 		}
 		Body.applyForce(
 			this.body,
@@ -96,9 +103,10 @@ export default class Person {
 	}
 
 	private getExit() {
+		this.exit = getZone(this.body.position).exits[0]
 		// Choose random exit using random int generator
 		// (min is inclusive, max is exclusive)
-  		this.exit = exits[0]
+  		// this.exit = exits[1]
 	}
 
 	private getExitDirectionForce() {

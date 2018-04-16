@@ -22,7 +22,7 @@ const spawnPeople = (spawnLocations: Array<Vector> = null) => {
 		World.add(engine.world, [person.body])	
 	}
 
-	for (let i = 0; i<50; i++) {
+	for (let i = 0; i<80; i++) {
 		addPerson()
 	}
 }
