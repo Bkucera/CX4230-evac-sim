@@ -1,6 +1,6 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
-import { w, h, personColor, personSize } from './globals';
+import { w, h, personColor, personSize, exitWidth } from './globals';
 import {exits, getZone} from './Mapper'
 import Exit from './Exit';
 import { exitedBuilding } from "./Spawner";
@@ -8,7 +8,7 @@ import { exitedBuilding } from "./Spawner";
 // Hardcoded defaultExits 
 const wallThickness = 10
 const roomLength = 25
-const defaultExitWidth = 25
+// const defaultExitWidth = 25
 // const defaultExits = [
 // 	Vector.create(w, h - wallThickness / 2),
 // 	Vector.create(w, wallThickness / 2)
@@ -80,7 +80,7 @@ export default class Person {
 	}
 
 	private move() {
-		if (Vector.magnitude(Vector.sub(this.body.position, this.exit.position)) < 10) {
+		if ((Math.abs(this.body.position.x-this.exit.position.x) < 10) && Math.abs(this.body.position.y-this.exit.position.y) < exitWidth) {
 			this.reachedExit()
 		}
 		Body.applyForce(
@@ -115,6 +115,6 @@ export default class Person {
 		return Vector.div(Vector.normalise({
 			x: deltaX,
 			y: deltaY,
-		}), 100 / this.body.mass)
+		}), 130 / this.body.mass)
 	}
 }
