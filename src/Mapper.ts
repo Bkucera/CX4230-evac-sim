@@ -31,33 +31,44 @@ export class Zone {
   
 	constructor(params: Partial<Zone>) {
 	  assign(this, params)
+	  this.exits.push(
+		new Exit({
+		  position: Vector.create(this.position.x + this.w,this.position.y + this.h / 2),
+		  length: 0,
+		  width: exitWidth,
+		  nextZone: this.nextZone,
+		})
+	  )
+	  exits.push(...this.exits)
 	  this.createWalls()
 	}
 
 	private createWalls() {
 	  const h = this.h
 	  const w = this.w
+	  const x = this.position.x
+	  const y = this.position.y
 	  const exitWidth = this.exitWidth
 	  const walls = [
-		Bodies.rectangle(0, h - wallThickness / 2, 2 * w, wallThickness, {
+		Bodies.rectangle(x+w/2, y+wallThickness/2, w, wallThickness, {
 		  isStatic: true
 		}),
-		Bodies.rectangle(0, wallThickness / 2, 2 * w, wallThickness, {
+		Bodies.rectangle(x, y+h-wallThickness/2, 2 * w, wallThickness, {
 		  isStatic: true
 		}),
 		Bodies.rectangle(wallThickness / 2, h / 2, wallThickness, h, {
 		  isStatic: true
 		}),
 		Bodies.rectangle(
-		  w - wallThickness / 2,
-		  h / 4 - exitWidth / 2,
+		  x + w - wallThickness / 2,
+		  y + h / 4 - exitWidth / 2,
 		  wallThickness,
 		  h / 2 - exitWidth,
 		  { isStatic: true }
 		),
 		Bodies.rectangle(
-		  w - wallThickness / 2,
-		  h * 3 / 4 + exitWidth / 2,
+		  x + w - wallThickness / 2,
+		  y + h * 3 / 4 + exitWidth / 2,
 		  wallThickness,
 		  h / 2 - exitWidth,
 		  { isStatic: true }
@@ -67,14 +78,7 @@ export class Zone {
 	  ]
 	  walls.forEach(wall => (wall.render.fillStyle = wallColor))
 	  World.add(engine.world, [...walls])
-	  this.exits.push(
-		new Exit({
-		  position: Vector.create(w, h / 2),
-		  length: 0,
-		  width: exitWidth,
-		  nextZone: this.nextZone,
-		})
-	  )
+
 	}
   }
   
@@ -86,20 +90,24 @@ const createDefaultMap = () => {
 
 const outer = new Zone({})
 const inner1 = new Zone({
-	position: {x:w/2, y:h/2},
+	position: {x:0, y:h/2},
 	w: w/2,
 	h: h/2,
 	nextZone:outer,
 	})
+const inner2 = new Zone ({
+	position: {x:0,y:0},
+	w: w/3,
+	h:h/3,
+	nextZone: outer
+})
+
+
 zones = [
 	outer,
 	inner1,
+	inner2,
 ]
-
-	exits.push(
-		...outer.exits,
-		...inner1.exits,
-	)
   // add the walls on all four sides of the simulation
   
 //   const obstacles = [
@@ -116,14 +124,16 @@ zones = [
 export const getZone = (position:Vector):Zone => {
 	zones = zones.sort((a,b) => b.h*b.w - a.h * a.w)
 	let inZone = zones[0];
-	console.log(zones)
-	zones.forEach(zone=> {
-		if (position.x > zone.position.x -zone.w
-			&& position.x < zone.position.x 
-			&& position.y > zone.position.y - zone.h
-			&& position.y < zone.position.y 
+	// console.log(zones)
+	zones.forEach((zone,i)=> {
+		if (position.x > zone.position.x+wallThickness/2
+			&& position.x < zone.position.x + zone.w - wallThickness/2
+			&& position.y > zone.position.y + wallThickness/2
+			&& position.y < zone.position.y +zone.h - wallThickness/2
 			) {
-				console.log('in zone ' + zone.w)
+				if (i === 3) {
+					console.log("in zone 3")
+				}
 				inZone = zone
 			}
 	})

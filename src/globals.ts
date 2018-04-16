@@ -4,7 +4,7 @@ const h = 400
   const personColor = '#8BBF9F'
   const personSize = 6
   const	wallColor = "#857E7B"
-  const exitWidth = 12
+  const exitWidth = 10
 
 export {
 	w,
