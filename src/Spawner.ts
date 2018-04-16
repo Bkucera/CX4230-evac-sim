@@ -17,7 +17,7 @@ const spawnPeople = (spawnLocations: Array<Vector> = null) => {
 
 	const addPerson = () => {
 		const person = new Person({
-			initPosition: {x: Math.random()*w, y: Math.random()*h}
+			initPosition: {x: 5+Math.random()*(w-10), y: 5+Math.random()*(h-10)}
 		})
 		World.add(engine.world, [person.body])	
 	}
