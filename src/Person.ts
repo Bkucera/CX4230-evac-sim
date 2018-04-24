@@ -64,6 +64,9 @@ export default class Person {
 			this.timeout = setInterval(() => this.move(), 120)
 		}, Math.random()*500);
 
+		setTimeout(() => {
+			this.talk('HELP!')
+		}, 1000);
 	}
 
 	private reachedExit() {
@@ -115,6 +118,10 @@ export default class Person {
 		return Vector.div(Vector.normalise({
 			x: deltaX,
 			y: deltaY,
-		}), 130 / this.body.mass)
+		}), 110 / this.body.mass)
+	}
+
+	private talk(message:string):void {
+		
 	}
 }
