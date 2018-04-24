@@ -2,43 +2,50 @@
 *a simulation project for Gatech CX4230*  
 [![CircleCI](https://circleci.com/gh/Bkucera/CX4230-evac-sim.svg?style=svg)](https://circleci.com/gh/Bkucera/CX4230-evac-sim)
 
+---> [Live Demo](https://kuc.io/CX4230-evac-sim/master) <---
+---
+
 ![npm run browser](npmbrowser.gif)
 
-[Demo - master](https://kuc.io/CX4230-evac-sim/master)
 
-Install dependencies:
+
+## How to run:
+
+### Install dependencies:
 
 ```bash
 npm install
 ```
 
-## Two ways to run the sim:
+### Configure Parameters:
 
-### 1. In a browser
+edit `params.json` with simulation parameters.
+
+
+### Pick a simulation method
+
+#### 1. In a browser (preferred)
 
 ```bash
 npm run browser
 ```
-Now open up a browser to **http://localhost:9000** to run the sim!
+Now open up a browser to **http://localhost:9000** to run the sim!  
 To rerun it, just reload the page.
 
-### 2. In a terminal
+#### 2. In a terminal (boring)
 ```bash
 npm run term
 ```
 and the sim will run!
 
-ex)
+example)
 
 ![npm run term](npmterm.png)
 
-## Deployment
-
-All deployments are automated though Circle-CI (scripted in `scripts/deploy-ci.ts`).
-
-Any commit to any branch will trigger a build and deployment to `kuc.io/CX4230-evac-sim/` + `branch_name`  
-It follows that `master` will be viewable here: [kuc.io/CX4230-evac-sim/master](https://kuc.io/CX4230-evac-sim/issue-6/)
-# Running instructions for deeplearning cluster:
+...  
+...
+## Running instructions for deeplearning cluster:
+**Important Note:** The project will be visible as a web server on `localhost:9000` **of the node you are ssh-ing into**. You can use ssh to map this to your own computer's `localhost:9000` through ssh using `ssh -L 9000:localhost:9000`
 
 clone this repo using git or download:
 ```
@@ -63,20 +70,19 @@ nvm install --lts
 nvm alias default node
 ```
 
-finally, install my dependencies:
-```
-npm install
-```
-and run the simulation:
-```
-npm start
-```
-Navigate to **localhost:9000** in a web browser.  
-to run the simulation again, just refresh the page.
-
-The project will be visible as a web server on localhost:9000. You can use ssh to map this to your own computer's localhost:9000 through ssh using `ssh -L 9000:localhost:9000`.
+Now refer to **How to Run** above ⬆
 
 
+...  
+...
+## Other info:
+
+### Deployment:
+
+All deployments are automated though Circle-CI (scripted in `scripts/deploy-ci.ts`).
+
+Any commit to any branch will trigger a build and deployment to `kuc.io/CX4230-evac-sim/` + `branch_name`  
+It follows that `master` will be viewable here: [kuc.io/CX4230-evac-sim/master](https://kuc.io/CX4230-evac-sim/issue-6/)
 
 
 
