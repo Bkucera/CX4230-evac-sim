@@ -2,6 +2,7 @@
 *a simulation project for Gatech CX4230*  
 [![CircleCI](https://circleci.com/gh/Bkucera/CX4230-evac-sim.svg?style=svg)](https://circleci.com/gh/Bkucera/CX4230-evac-sim)
 
+![npm run browser](npmbrowser.gif)
 
 [Demo - master](https://kuc.io/CX4230-evac-sim/master)
 
@@ -27,6 +28,9 @@ npm run term
 ```
 and the sim will run!
 
+ex)
+
+![npm run term](npmterm.png)
 
 ## Deployment
 
