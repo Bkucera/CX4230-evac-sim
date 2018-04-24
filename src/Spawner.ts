@@ -1,6 +1,6 @@
 import { Vector, World, Engine, Render } from "matter-js"
 import Person from "./Person"
-import { w, h, isNode } from "./globals"
+import { w, h, isNode, numPeople } from "./globals"
 import { engine } from "./app"
 import { stats } from "./stats"
 import chalk from "chalk"
@@ -9,7 +9,7 @@ const $ = isNode?null:require('jquery')
 
 const $exitedCount = $?$('<div id="exited-count">No escapees</div>').appendTo($("body")):null
 const $throughput = $?$("<div>throughput: 0 evac/sec</div>").appendTo($("body")):null
-const numPeople = 25
+
 /**
  * This function is not what we want.
  * We want to take in an Array of spawn locations : {x,y} and create a Person
