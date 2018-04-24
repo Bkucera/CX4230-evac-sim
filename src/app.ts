@@ -1,12 +1,18 @@
 import { Bodies, Engine, Render, World, Mouse, MouseConstraint, Constraint, Composite, Body } from "matter-js"
 
 import Mapper from './Mapper'
-import { w, h } from './globals'
-import * as $ from 'jquery'
+import { w, h, isNode } from './globals'
 import { stats } from "./stats";
 export let engine
+export let render = null
 
-const $timestamp = $(`<div>timestamp:0</div>`).appendTo($('body'))
+if (isNode) {
+	global['window'] = {};
+}
+
+const $ = isNode?null:require('jquery')
+
+const $timestamp = $?$(`<div>timestamp:0</div>`).appendTo($('body')):null
 
 let headless = true
 
@@ -14,28 +20,17 @@ export const start = () => {
 
 	// create the simulation objects
 	engine = Engine.create()
-	const render = Render.create({
+	if ($) {
+		render = Render.create({
 		element: document.body,
 		engine,
 		options: {
 			height: h,
 			width: w,
-			wireframes:false,
+			wireframes: false,
 		},
 	})
 	Render.run(render)
-
-	// start the simulation
-	Engine.run(engine)
-
-	console.log(engine.timing)
-	engine.timing.timeScale = 1
-	setInterval(() => {
-		stats.timestamp = Math.round(engine.timing.timestamp/10)/100
-		$timestamp.text(`timestamp: ${stats.timestamp}`)
-	}, 100);
-	window['engine'] = engine
-	// add mouse interaction
 	const mouse = Mouse.create(render.canvas);
 	const mouseConstraint = MouseConstraint.create(engine, {
 		constraint: {
@@ -48,6 +43,19 @@ export const start = () => {
 	})
 	World.add(engine.world, mouseConstraint)
 	render.mouse = mouse
+	}
+
+	// start the simulation
+	Engine.run(engine)
+
+	// engine.timing.timeScale = 1
+	setInterval(() => {
+		stats.timestamp = Math.round(engine.timing.timestamp/10)/100
+		$?$timestamp.text(`timestamp: ${stats.timestamp}`):null
+	}, 100);
+	// window['engine'] = engine
+	// add mouse interaction
+	
 
 	// disable gravity (duh)
 	engine.world.gravity.y = 0	
