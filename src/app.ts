@@ -6,7 +6,6 @@ import { stats } from "./stats";
 export let engine
 export let render = null
 
-console.log(process.title)
 if (isNode) {
 	global['window'] = {};
 }
@@ -49,8 +48,7 @@ export const start = () => {
 	// start the simulation
 	Engine.run(engine)
 
-	engine.timing.timeScale = 1
-	console.log(engine.timing)
+	// engine.timing.timeScale = 1
 	setInterval(() => {
 		stats.timestamp = Math.round(engine.timing.timestamp/10)/100
 		$?$timestamp.text(`timestamp: ${stats.timestamp}`):null
