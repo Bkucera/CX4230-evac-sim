@@ -11,19 +11,17 @@ const $exitedCount = $?$('<div id="exited-count">No escapees</div>').appendTo($(
 const $throughput = $?$("<div>throughput: 0 evac/sec</div>").appendTo($("body")):null
 
 /**
- * This function is not what we want.
- * We want to take in an Array of spawn locations : {x,y} and create a Person
- *   for each one at that location. Currently we are just spawning people
- *   randomly
+ * Instantiate people objects
  */
 const spawnPeople = (spawnLocations: Array<Vector> = null) => {
   const addPerson = () => {
     const person = new Person({
-      initPosition: {
+      initPosition: { // set random position
         x: 5 + Math.random() * (w - 10),
         y: 5 + Math.random() * (h - 10)
       }
     })
+    // add to simulation engine
     World.add(engine.world, [person.body])
   }
 

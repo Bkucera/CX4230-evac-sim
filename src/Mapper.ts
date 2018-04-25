@@ -44,6 +44,7 @@ export class Zone {
 	}
 
 	private createWalls() {
+		// instantiate wall objects
 	  const h = this.h
 	  const w = this.w
 	  const x = this.position.x
@@ -73,8 +74,7 @@ export class Zone {
 		  h / 2 - exitWidth,
 		  { isStatic: true }
 		)
-		// Bodies.rectangle(w / 2, wallThickness, wallThickness, h / 2 - defaultExitWidth / 2, { isStatic: true }),
-		// Bodies.rectangle(w / 2, h + defaultExitWidth / 2, wallThickness, h / 2, { isStatic: true }),
+		// actually add walls to the simulation
 	  ]
 	  walls.forEach(wall => (wall.render.fillStyle = wallColor))
 	  World.add(engine.world, [...walls])
@@ -87,7 +87,7 @@ export let exits:Exit[] = []
 let zones: Zone[];
 
 const createDefaultMap = () => {
-
+// construct zones
 const outer = new Zone({})
 const inner1 = new Zone({
 	position: {x:0, y:h/2},
@@ -108,16 +108,7 @@ zones = [
 	inner1,
 	inner2,
 ]
-  // add the walls on all four sides of the simulation
-  
-//   const obstacles = [
-    // Bodies.rectangle(w / 2 + 5 * wallThickness, h/3*2, wallThickness, wallThickness, { isStatic: true })
-//   ]
-//   obstacles.forEach(wall => (wall.render.fillStyle = wallColor))
-  // actually add them to the sim
-//   World.add(engine.world, [...obstacles])
-
-  // spawn the People
+  // Pass work to Spawner to instantiate people
   Spawner.start()
 }
 
@@ -149,16 +140,8 @@ const defaultObstacles = [
   )
 ]
 
-const createMap = (
-  exitLocations: Array<Vector> = null,
-  obstacleLocations: Array<Vector> = null
-) => {
-  // TODO
-}
-
 export default {
   createDefaultMap,
-  defaultObstacles,
-  createMap
+  defaultObstacles
 }
 

@@ -8,16 +8,8 @@ import { exitedBuilding } from "./Spawner";
 // Hardcoded defaultExits 
 const wallThickness = 10
 const roomLength = 25
-// const defaultExitWidth = 25
-// const defaultExits = [
-// 	Vector.create(w, h - wallThickness / 2),
-// 	Vector.create(w, wallThickness / 2)
-// ]
-// const exits = Mapper.exits || defaultExits
-
 
 /*
-
 This file hold the logic for the "Person" consumer class
 
 You should be able to do the following:
@@ -59,16 +51,15 @@ export default class Person {
 		}
 		
 		this.getExit()
-		// Start walking randomly every 90 ms, repeat forever
+		// Move towards an exit
 		setTimeout(() => {
 			this.timeout = setInterval(() => this.move(), 120)
 		}, Math.random()*500);
-
-		setTimeout(() => {
-			this.talk('HELP!')
-		}, 1000);
 	}
 
+	/**
+	 * Check whether exit has been reached and if so, exit
+	 */
 	private reachedExit() {
 		if (this.exit.nextZone) {
 			this.exit = this.exit.nextZone.exits[0]
@@ -77,6 +68,9 @@ export default class Person {
 		}
 	}
 
+	/**
+	 * Exit building handler
+	 */
 	private exitBuilding() {
 		exitedBuilding(this)
 		clearInterval(this.timeout)
@@ -98,7 +92,6 @@ export default class Person {
 	 * @return Returns true if the person is now responding to the alarm, false otherwise
 	 */
 	private waitUntilAlarmAck(): Boolean {
-		// This is probably broken since we haven't sync'd sim time
 		if (this.responseTime > 0) {
 			this.responseTime--
 		}
@@ -107,11 +100,11 @@ export default class Person {
 
 	private getExit() {
 		this.exit = getZone(this.body.position).exits[0]
-		// Choose random exit using random int generator
-		// (min is inclusive, max is exclusive)
-  		// this.exit = exits[1]
 	}
 
+	/**
+	 * Determine direction of exit
+	 */
 	private getExitDirectionForce() {
 		let deltaX = this.exit.position.x - this.body.position.x
 		let deltaY = this.exit.position.y - this.body.position.y
@@ -119,9 +112,5 @@ export default class Person {
 			x: deltaX,
 			y: deltaY,
 		}), 110 / this.body.mass)
-	}
-
-	private talk(message:string):void {
-		
 	}
 }
