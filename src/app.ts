@@ -52,10 +52,7 @@ export const start = () => {
 	setInterval(() => {
 		stats.timestamp = Math.round(engine.timing.timestamp/10)/100
 		$?$timestamp.text(`timestamp: ${stats.timestamp}`):null
-	}, 100);
-	// window['engine'] = engine
-	// add mouse interaction
-	
+	}, 100);	
 
 	// disable gravity (duh)
 	engine.world.gravity.y = 0	
