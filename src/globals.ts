@@ -5,7 +5,7 @@ const h = 400
   const	wallColor = "#857E7B"
   const isNode = process.title.indexOf("node") !== -1
 
-  const {personSize,exitWidth,numPeople} = require('../params.json')
+  const {personSize,exitWidth,numPeople,multiBehavioral} = require('../params.json')
 
 
 export {
@@ -17,4 +17,5 @@ export {
   exitWidth,
   isNode,
   numPeople,
+  multiBehavioral,
 }

@@ -10,6 +10,7 @@ const $ = isNode?null:require('jquery')
 const $exitedCount = $?$('<div id="exited-count">No escapees</div>').appendTo($("body")):null
 const $throughput = $?$("<div>throughput: 0 evac/sec</div>").appendTo($("body")):null
 
+export const persons : Person[] = []
 /**
  * Instantiate people objects
  */
@@ -22,12 +23,15 @@ const spawnPeople = (spawnLocations: Array<Vector> = null) => {
       }
     })
     // add to simulation engine
+    persons.push(person)
     World.add(engine.world, [person.body])
   }
 
   for (let i = 0; i < numPeople; i++) {
     addPerson()
   }
+
+  persons.forEach(person=>person.alert())
 }
 
 const start = () => {
