@@ -1,9 +1,9 @@
 import { Vector, World, Engine, Render } from "matter-js"
 import Person from "./Person"
-import { w, h, isNode, numPeople } from "./globals"
+import { w, h, isNode, numPeople, personSize, exitWidth, multiBehavioral, maxResponseTime } from "./globals"
 import { engine } from "./app"
 import { stats } from "./stats"
-import chalk from "chalk"
+import chalk from 'chalk'
 
 const $ = isNode?null:require('jquery')
 
@@ -43,10 +43,21 @@ const printStats = () => {
     `Simulation Completed\n` +
       chalk.blue("Stats:\n") +
       `
-		Evacuated Count: ${chalk.white(stats.evacuatedCount + "")}
-		Time Taken: ${chalk.white(stats.timestamp + " sec")}
-		Throughput: ${chalk.white(stats.throughput + " evac/sec")}
-		`
+		Evacuated Count: ${chalk.white.bgBlack(stats.evacuatedCount + "")}
+		Time Taken: ${chalk.white.bgBlack(stats.timestamp + " sec")}
+		Throughput: ${chalk.white.bgBlack(stats.throughput + " evac/sec")}
+    \n` +
+    chalk.blue("Params for this run:"+
+    `
+    ${chalk.bgBlack.green('params.json')}:
+    {
+      "personSize": ${chalk.white.bgBlack(personSize)},
+      "exitWidth": ${chalk.white.bgBlack(exitWidth)},
+      "numPeople": ${chalk.white.bgBlack(numPeople)},
+      "multiBehavioral": ${chalk.white.bgBlack(multiBehavioral)},
+      "maxResponseTime": ${chalk.white.bgBlack(maxResponseTime)}
+    }
+    `)
   )
 
   $?$(`<pre>${statsString}</pre>`).appendTo($("body")):console.log(statsString)
