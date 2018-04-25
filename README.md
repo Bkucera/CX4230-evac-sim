@@ -82,7 +82,7 @@ Now refer to **How to Run** above ⬆
 All deployments are automated though Circle-CI (scripted in `scripts/deploy-ci.ts`).
 
 Any commit to any branch will trigger a build and deployment to `kuc.io/CX4230-evac-sim/` + `branch_name`  
-It follows that `master` will be viewable here: [kuc.io/CX4230-evac-sim/master](https://kuc.io/CX4230-evac-sim/issue-6/)
+It follows that `master` will be viewable here: [kuc.io/CX4230-evac-sim/master](https://kuc.io/CX4230-evac-sim/master)
 
 
 
