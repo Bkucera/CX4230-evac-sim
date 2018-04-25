@@ -17,6 +17,7 @@ import Spawner from "./Spawner"
 import { h, w, wallColor, exitWidth } from "./globals"
 import { engine } from "./app"
 import { assign } from "lodash"
+import { dirname } from "path";
 
 const wallThickness = 10
 const roomLength = 25
@@ -77,7 +78,9 @@ export class Zone {
 		// actually add walls to the simulation
 	  ]
 	  walls.forEach(wall => (wall.render.fillStyle = wallColor))
-	  World.add(engine.world, [...walls])
+		World.add(engine.world, [...walls])
+	
+
 
 	}
   }

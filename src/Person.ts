@@ -1,9 +1,10 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
 import { w, h, personColor, personSize, exitWidth } from './globals';
-import {exits, getZone} from './Mapper'
+import Mapper, { exits, getZone } from './Mapper'
 import Exit from './Exit';
-import { exitedBuilding } from "./Spawner";
+import Spawner, { exitedBuilding, persons } from "./Spawner";
+import { dirname } from 'path';
 
 // Hardcoded defaultExits 
 const wallThickness = 10
@@ -31,6 +32,7 @@ export default class Person {
 	public speed: number
 	public exitBehavior: object
 	private timeout: any
+	private following:Vector[] = null
 	constructor(options: Partial<Person>) {
 		assign(this, options)
 
@@ -52,6 +54,27 @@ export default class Person {
 		
 		this.getExit()
 		// Move towards an exit
+
+	}
+
+	public alert() {
+		this.chooseBehavoir()
+		this.startMove()
+	}
+
+	private chooseBehavoir() {
+		if (Math.random() < .4) {
+			// is a follower
+			this.following = []
+			persons.forEach(person=> {
+				if (person.exit === this.exit) {
+					this.following.push(person.body.position)
+				}
+			})
+		}
+	}
+
+	public startMove() {
 		setTimeout(() => {
 			this.timeout = setInterval(() => this.move(), 120)
 		}, Math.random()*500);
@@ -77,14 +100,31 @@ export default class Person {
 	}
 
 	private move() {
-		if ((Math.abs(this.body.position.x-this.exit.position.x) < 10) && Math.abs(this.body.position.y-this.exit.position.y) < exitWidth) {
+		const distanceToExit = {
+			x: Math.abs(this.body.position.x-this.exit.position.x),
+			y: Math.abs(this.body.position.y-this.exit.position.y),
+		}
+		if ( distanceToExit.x < 10 && distanceToExit.y < exitWidth) {
 			this.reachedExit()
 		}
+
+		const closeToExit = (distanceToExit.x + distanceToExit.y) < 40
+		const gotoExit = !this.following || closeToExit
+
 		Body.applyForce(
 			this.body,
 			this.body.position,
-			this.getExitDirectionForce(),
+			this.getDirectionForceTo(gotoExit?this.exit.position:this.getAvgFollowing()),
 		)
+	}
+
+	private getAvgFollowing() {
+		let sumVector = {x:0, y:0}
+		this.following.forEach(position => {
+			sumVector = Vector.add(sumVector, position)
+		})
+		const direction = Vector.div(sumVector, this.following.length)
+		return direction
 	}
 
 	/**
@@ -103,11 +143,11 @@ export default class Person {
 	}
 
 	/**
-	 * Determine direction of exit
+	 * Determine direction of force
 	 */
-	private getExitDirectionForce() {
-		let deltaX = this.exit.position.x - this.body.position.x
-		let deltaY = this.exit.position.y - this.body.position.y
+	private getDirectionForceTo(towards:Vector) {
+		let deltaX = towards.x - this.body.position.x
+		let deltaY = towards.y - this.body.position.y
 		return Vector.div(Vector.normalise({
 			x: deltaX,
 			y: deltaY,
