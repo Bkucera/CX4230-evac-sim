@@ -1,6 +1,6 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
-import { w, h, personColor, personSize, exitWidth, multiBehavioral } from './globals';
+import { w, h, personColor, personSize, exitWidth, multiBehavioral, maxResponseTime } from './globals';
 import Mapper, { exits, getZone } from './Mapper'
 import Exit from './Exit';
 import Spawner, { exitedBuilding, persons } from "./Spawner";
@@ -59,7 +59,10 @@ export default class Person {
 
 	public alert() {
 		if (multiBehavioral) this.chooseBehavoir()
-		this.startMove()
+
+		setTimeout(() => {
+			this.startMove()
+		}, Math.random()*maxResponseTime);
 	}
 
 	private chooseBehavoir() {
@@ -77,7 +80,7 @@ export default class Person {
 	public startMove() {
 		setTimeout(() => {
 			this.timeout = setInterval(() => this.move(), 120)
-		}, Math.random()*500);
+		}, Math.random()*200);
 	}
 
 	/**
