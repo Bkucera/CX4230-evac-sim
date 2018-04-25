@@ -1,5 +1,6 @@
 {
   "personSize": 6,
   "exitWidth": 10,
-  "numPeople": 50
+  "numPeople": 50,
+  "multiBehavioral": false
 }

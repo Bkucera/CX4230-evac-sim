@@ -1,6 +1,6 @@
 import { assign } from 'lodash'
 import { Bodies, Body, Vector } from "matter-js";
-import { w, h, personColor, personSize, exitWidth } from './globals';
+import { w, h, personColor, personSize, exitWidth, multiBehavioral } from './globals';
 import Mapper, { exits, getZone } from './Mapper'
 import Exit from './Exit';
 import Spawner, { exitedBuilding, persons } from "./Spawner";
@@ -58,7 +58,7 @@ export default class Person {
 	}
 
 	public alert() {
-		this.chooseBehavoir()
+		if (multiBehavioral) this.chooseBehavoir()
 		this.startMove()
 	}
 
